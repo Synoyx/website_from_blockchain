@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/web3@4.2.2/dist/web3.min.js"></script>
+  </head>
+  <body>
+    <div id="websiteContent"></div>
+    <script>
+      window.addEventListener("load", function () {
+        // Trying to connect to a provider (metamask)
+        // Metamask won't fill this variable if you just open your html file on your laptop. You need to deploy it
+        if (window.ethereum) {
+          window.web3 = new Web3(window.ethereum);
+
+          // Describe the contract's available methods
+          const contractABI = [
+            {
+              inputs: [
+                { internalType: "string", name: "_content", type: "string" },
+              ],
+              name: "setWebsite",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            { inputs: [], stateMutability: "nonpayable", type: "constructor" },
+            {
+              inputs: [],
+              name: "getWebsite",
+              outputs: [{ internalType: "string", name: "", type: "string" }],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "websiteContent",
+              outputs: [{ internalType: "string", name: "", type: "string" }],
+              stateMutability: "view",
+              type: "function",
+            },
+          ];
+          const contractAddress = "0xDC142Af3F6Bed4eB2fA7DB6Bd34c83F89e3A90ae";
+          const contract = new web3.eth.Contract(contractABI, contractAddress);
+
+          // Calls one of the contract's method
+          contract.methods
+            .getWebsite()
+            .call()
+            .then((result) => {
+              // Sets the result on a DOM element
+              document.getElementById("websiteContent").innerHTML = result;
+              console.log("Résultat de la fonction :", result);
+            })
+            .catch((error) => {
+              console.error("Error :", error);
+            });
+        } else {
+          alert("Can't access to metamask");
+        }
+      });
+    </script>
+  </body>
+</html>
