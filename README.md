@@ -2,7 +2,7 @@
 
 ## website_from_blockchain
 
-Funny project, where I store a website in the blockchain, and then load it in JS from another page
+Funny project, where I store a website in the blockchain, and then load it from another page with JS 
 
 <h3>How does it works ?</h3>
 <h4>The project is pretty simple. We'll create a smart contract with a string variable and a getter / setter on it. The goal is to use it to save the website html content into that variable.</h4>
